@@ -1,4 +1,4 @@
-const Card = (article) => {
+
   // TASK 5
   // ---------------------
   // Implement this function, which should return the markup you see below.
@@ -16,10 +16,42 @@ const Card = (article) => {
   //     <span>By { authorName }</span>
   //   </div>
   // </div>
+
+import axios from "axios";
+
   //
+  const Card = (article) => {
+    const cardDiv = document.createElement('div');
+    const headline = document.createElement('div');
+    const author = document.createElement('div');
+    const imgContainer = document.createElement('div');
+    const authorPhoto = document.createElement("img");
+    const by = document.createElement ('span');
+    
+    cardDiv.classList.add ('card');
+    headline.classList.add('headline');
+    author.classList.add("author");
+    imgContainer.classList.add("img-container");
+
+     cardDiv.addEventListener("click", () => {
+       console.log(article.headline);
+     })
+    
+    headline.textContent = article.headline;
+    authorPhoto.setAttribute("src", article.authorPhoto);
+    by.textContent = `By ${article.authorName}`
+
+    cardDiv.appendChild(headline);
+    cardDiv.appendChild(author);
+    author.appendChild(imgContainer);
+    imgContainer.appendChild(authorPhoto);
+    author.appendChild(by);
+
+    return cardDiv;
+
 }
 
-const cardAppender = (selector) => {
+
   // TASK 6
   // ---------------------
   // Implement this function that takes a css selector as its only argument.
@@ -28,6 +60,27 @@ const cardAppender = (selector) => {
   // Create a card from each and every article object in the response, using the Card component.
   // Append each card to the element in the DOM that matches the selector passed to the function.
   //
-}
+  const cardAppender = (selector) => {
+   const cardContainer = document.querySelector(selector);
+    axios 
+   .get('https://lambda-times-api.herokuapp.com/articles')
+   .then((response) => {
+     const cardArray = response.data.articles;
+     for(const [key, value] of Object.entries(cardArray)){
+       value.forEach(article => {
+         cardContainer.append(Card(article));
+       });
+     }
+    })
+    .catch((err) => {
+      console.log('error', err);
+    });
+  }
+    
+
+		
+    
+    
+
 
 export { Card, cardAppender }
