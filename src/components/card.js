@@ -66,7 +66,7 @@ import axios from "axios";
    .get('https://lambda-times-api.herokuapp.com/articles')
    .then((response) => {
      const cardArray = response.data.articles;
-     for(const [key, value] of Object.entries(cardArray)){
+     for(const [value] of Object.entries(cardArray)){
        value.forEach(article => {
          cardContainer.append(Card(article));
        });
