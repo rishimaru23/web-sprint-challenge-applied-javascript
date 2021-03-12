@@ -41,7 +41,7 @@ return header;
 const headerAppender = (selector) => {
   document 
     .querySelector(selector)
-    .appendChild(Header("Lambda Times", "02/12/21", "70"));
+    .appendChild(Header("Lambda Times", "03/12/21", "70"));
 };
   // TASK 2
   // ---------------------
